@@ -206,6 +206,10 @@ type doVolume struct {
 	volume.MetricsNil
 }
 
+func (doVolume *doVolumeMounter) CanMount() error {
+	return nil
+}
+
 func (doVolume *doVolumeMounter) GetAttributes() volume.Attributes {
 	return volume.Attributes{
 		ReadOnly:        doVolume.readOnly,
