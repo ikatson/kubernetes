@@ -144,6 +144,14 @@ func isVolumeConflict(volume api.Volume, pod *api.Pod) bool {
 				return true
 			}
 		}
+
+		// TODO: make this more granular, e.g. support read-only and ReadWriteMany volumes
+		// and file a kubernetes PR.
+		if volume.PersistentVolumeClaim != nil && existingVolume.PersistentVolumeClaim != nil {
+			if volume.PersistentVolumeClaim.ClaimName == existingVolume.PersistentVolumeClaim.ClaimName {
+				return true
+			}
+		}
 	}
 
 	return false
