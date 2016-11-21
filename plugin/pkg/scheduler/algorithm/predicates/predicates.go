@@ -128,6 +128,12 @@ func isVolumeConflict(volume api.Volume, pod *api.Pod) bool {
 			}
 		}
 
+		if volume.DigitalOceanVolume != nil && existingVolume.DigitalOceanVolume != nil {
+			if volume.DigitalOceanVolume.VolumeID == existingVolume.DigitalOceanVolume.VolumeID {
+				return true
+			}
+		}
+
 		if volume.RBD != nil && existingVolume.RBD != nil {
 			mon, pool, image := volume.RBD.CephMonitors, volume.RBD.RBDPool, volume.RBD.RBDImage
 			emon, epool, eimage := existingVolume.RBD.CephMonitors, existingVolume.RBD.RBDPool, existingVolume.RBD.RBDImage
