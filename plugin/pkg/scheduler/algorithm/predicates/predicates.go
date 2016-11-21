@@ -109,7 +109,7 @@ type predicateMetadata struct {
 
 func isVolumeConflict(volume api.Volume, pod *api.Pod) bool {
 	// fast path if there is no conflict checking targets.
-	if volume.GCEPersistentDisk == nil && volume.AWSElasticBlockStore == nil && volume.RBD == nil && volume.DigitalOceanVolume == nil {
+	if volume.GCEPersistentDisk == nil && volume.AWSElasticBlockStore == nil && volume.RBD == nil && volume.DigitalOceanVolume == nil && volume.PersistentVolumeClaim == nil {
 		return false
 	}
 
