@@ -250,7 +250,10 @@ func (do *DigitalOcean) InstanceID(nodeName types.NodeName) (string, error) {
 	} else {
 		droplet, err := do.findDroplet(nodeName)
 		if err != nil {
-			return "", cloudprovider.InstanceNotFound
+			if err == ErrNotFound {
+				return "", cloudprovider.InstanceNotFound
+			}
+			return "", err
 		} else {
 			return strconv.Itoa(droplet.ID), nil
 		}
