@@ -227,7 +227,7 @@ func (do *DigitalOcean) VolumesAreAttached(volumeIDs []string, instanceID int) (
 	for _, volumeID := range volumeIDs {
 		volume, err := do.getVolume(volumeID)
 		if err != nil {
-			continue
+			return nil, err
 		}
 		for _, i := range volume.DropletIDs {
 			if i == instanceID {
